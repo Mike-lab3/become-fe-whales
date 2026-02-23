@@ -11,8 +11,8 @@
 ### Stack bắt buộc
 | Layer | Tech |
 |---|---|
-| Framework | React 18 + TypeScript |
-| Styling | Tailwind CSS v3 |
+| Framework | React 19 + TypeScript |
+| Styling | Tailwind CSS v4 |
 | Routing | React Router DOM v6 |
 | State | useState / useContext (không cần Redux) |
 | Mock Data | JSON files trong `src/mock-data/` |
