@@ -1,34 +1,16 @@
-1. Vision and Core Message
-- Goal: To empower Designers to bridge the gap between design and development by using AI to transform Figma designs into functional code.
-- Philosophy: Deep coding knowledge is not required; the focus is on directing AI to handle environment setup, writing code, and fixing bugs.
-- Value: It allows Designers to maintain 100% control over pixel-perfect output without being delayed by developer bottlenecks.
-----------
-2. Competition Content
-- The Task: Each participant must convert a Whales Market Figma design into a fully functional React web app.
-- Mandatory Tech Stack: Participants must use React and Tailwind CSS.
-- Requirements: The app must feature multiple pages, navigation (routing), interactive logic (clicks, filters, modals), and display mock data.
-- Format: A 4-day, full-time individual assignment with no other company tasks.
-----------
-3. The 4-Day Roadmap
-- Day 1 (Setup): Read the guidebook, familiarize yourself with the design, setup the environment using AI, and submit a public GitHub repository link.
-- Day 2 (Build): Convert main pages (Landing, Dashboard, etc.), set up routing, and implement JSON mock data.
-- Day 3 (Polish & Logic): Add interactive logic (search, tabs, filters), optimize for pixel accuracy, ensure mobile responsiveness, and prepare the AI Showcase.
-- Day 4 (Presentation): Perform a live demo of the app and answer questions from the Board of Judges.
-----------
-4. Tools and Support
-- Recommended AI Tools: Antigravity (designer-friendly), Cursor (integrated with Figma MCP), and Claude Code (powerful CLI tool).
-- Credits: AI tool credits will be provided to participants as needed.
-- Advisory Team: Expert mentors are available via Telegram for technical setup (Lucas), AI prompting (Arthur), and product scope (Akemi).
-----------
-5. Judging Criteria (Total 100 Points)
-- AI Utilization (30 pts): Evaluates how effectively you directed the AI and the quality of your AI Showcase (3–5 examples of smart prompts).
-- Pixel Accuracy & Logic (25 pts): How closely the layout matches Figma and whether the features work correctly.
-- Completion & Enthusiasm (20 pts): The percentage of the project scope completed.
-- Responsive & Interaction (15 pts): Quality of mobile responsiveness, animations, and hover states.
-- Presentation (10 pts): Clarity during the live demo and confidence in the Q&A.
-----------
-6. Key Regulations
-- GitHub Updates: You must push code every day to show progress to the judges.
-- Deadlines: Deadlines are strict; late submissions will result in point deductions.
-- Persistence: Do not give up; if the task is too difficult, you may reduce the scope, but you must produce a working output.
-- Rewards: All participants receive a base reward, with the top 3 winning major prizes.
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
