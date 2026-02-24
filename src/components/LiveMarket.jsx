@@ -1,4 +1,11 @@
-import { SearchIcon, FilterIcon, ChevronDownIcon, SortIcon } from "../assets/icons";
+import { useState, useRef, useEffect } from "react";
+import { SearchIcon, FilterIcon, ChevronDownIcon, SortIcon, AllNetworksIcon } from "../assets/icons";
+
+// Network chain icons (local assets — replace files in src/assets/chains/)
+import imgNetworkSolana from "../assets/chains/solana.png";
+import imgNetworkEthereum from "../assets/chains/ethereum.png";
+import imgNetworkHyperliquid from "../assets/chains/hyperliquid.png";
+import imgNetworkBnb from "../assets/chains/bnb.png";
 
 // Token images per row (fresh from Figma)
 const imgTokenSkateOn = "https://www.figma.com/api/mcp/asset/2a99674e-23a8-4301-92c6-fd9c2b9d872e";
@@ -15,6 +22,14 @@ const imgChainEthereum = "https://www.figma.com/api/mcp/asset/b5d8ea9c-e577-473b
 const imgChainSolana4 = "https://www.figma.com/api/mcp/asset/72c46d4a-3955-4949-932f-fe937cc4018e";
 const imgChainSolana5 = "https://www.figma.com/api/mcp/asset/192c3042-72c1-4826-850d-211785a7b401";
 const imgChainSui = "https://www.figma.com/api/mcp/asset/4ec662e3-2ebf-4303-8cb9-66041723d1b7";
+
+const NETWORKS = [
+  { id: "all", label: "All", svgIcon: true, rounded: "rounded-full" },
+  { id: "solana", label: "Solana", icon: imgNetworkSolana, rounded: "rounded-sm" },
+  { id: "ethereum", label: "Ethereum", icon: imgNetworkEthereum, rounded: "rounded-sm" },
+  { id: "hyperliquid", label: "Hyperliquid", icon: imgNetworkHyperliquid, rounded: "rounded-sm" },
+  { id: "bnb", label: "BNB Chain", icon: imgNetworkBnb, rounded: "rounded-sm" },
+];
 
 const COLUMNS = [
   { label: "Token", align: "left", sortable: false },
@@ -35,6 +50,20 @@ const MARKET_DATA = [
 ];
 
 export default function LiveMarket() {
+  const [networkOpen, setNetworkOpen] = useState(false);
+  const [selectedNetwork, setSelectedNetwork] = useState("all");
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setNetworkOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <section className="flex flex-col gap-4 p-4">
       {/* Title bar */}
@@ -46,19 +75,64 @@ export default function LiveMarket() {
 
         <div className="flex items-center gap-4">
           {/* Search */}
-          <div className="w-[360px]">
-            <div className="flex items-center gap-2 bg-bg-neutral-02 rounded-lg p-2">
-              <SearchIcon className="size-5 text-text-neutral-tertiary shrink-0" />
-              <span className="text-sm text-text-neutral-tertiary">Search</span>
-            </div>
+          <div className="flex items-center gap-2 w-[360px] bg-bg-neutral-02 hover:bg-bg-neutral-03 focus-within:bg-bg-neutral-03 rounded-lg px-2 py-2 transition-colors">
+            <SearchIcon className="size-5 text-text-neutral-tertiary shrink-0" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="flex-1 min-w-0 bg-transparent text-sm text-text-neutral-primary placeholder:text-text-neutral-tertiary outline-none"
+            />
           </div>
 
           {/* Network filter */}
-          <button className="flex items-center gap-1.5 border border-border-neutral-02 rounded-lg p-2">
-            <FilterIcon className="size-5 text-text-neutral-primary" />
-            <span className="text-sm font-medium text-text-neutral-primary">Network</span>
-            <ChevronDownIcon className="size-4 text-text-neutral-primary" />
-          </button>
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setNetworkOpen((prev) => !prev)}
+              className="flex items-center gap-1.5 border border-border-neutral-02 rounded-lg p-2 cursor-pointer transition-colors hover:bg-bg-neutral-02"
+            >
+              <FilterIcon className="size-5 text-text-neutral-primary" />
+              <span className="text-sm font-medium text-text-neutral-primary">Network</span>
+              <ChevronDownIcon className={`size-4 text-text-neutral-primary transition-transform duration-200 ${networkOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {networkOpen && (
+              <div className="absolute top-full right-0 mt-1 w-[192px] bg-bg-neutral-02 rounded-[10px] shadow-[0px_0px_32px_0px_rgba(0,0,0,0.2)] z-50 p-2">
+                {/* Header */}
+                <div className="px-2 py-1">
+                  <span className="text-xs text-text-neutral-tertiary">Filter by Network</span>
+                </div>
+
+                {/* Options */}
+                <div className="flex flex-col gap-1 mt-1">
+                  {NETWORKS.map((network) => (
+                    <button
+                      key={network.id}
+                      onClick={() => { setSelectedNetwork(network.id); setNetworkOpen(false); }}
+                      className={`flex items-center gap-2 w-full px-2 py-1.5 rounded-lg text-left transition-colors ${
+                        selectedNetwork === network.id ? "bg-bg-neutral-03" : "hover:bg-bg-neutral-03"
+                      }`}
+                    >
+                      {network.svgIcon ? (
+                        <AllNetworksIcon className="size-4 text-text-neutral-primary shrink-0" />
+                      ) : (
+                        <img
+                          src={network.icon}
+                          alt=""
+                          className={`size-4 ${network.rounded} shrink-0 object-cover`}
+                        />
+                      )}
+                      <span className="flex-1 text-sm font-medium text-text-neutral-primary">{network.label}</span>
+                      {selectedNetwork === network.id && (
+                        <svg className="size-4 text-text-success shrink-0" viewBox="0 0 16 16" fill="none">
+                          <path d="M3 8.5L6 11.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -83,7 +157,7 @@ export default function LiveMarket() {
 
         {/* Rows */}
         {MARKET_DATA.map((item, idx) => (
-          <div key={idx} className="flex items-center border-b border-border-neutral-01 px-2">
+          <div key={idx} className="flex items-center border-b border-border-neutral-01 px-2 hover:bg-bg-neutral-02 cursor-pointer transition-colors">
             {/* Token */}
             <div className="flex-1 flex items-center gap-3 py-4">
               <div className="relative p-1 shrink-0">

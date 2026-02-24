@@ -59,7 +59,7 @@ export default function RecentTrades() {
 
         {/* Rows */}
         {TRADES.map((trade, idx) => (
-          <div key={idx} className="flex items-center border-b border-border-neutral-01 px-2">
+          <div key={idx} className="flex items-center border-b border-border-neutral-01 px-2 hover:bg-bg-neutral-02 cursor-pointer transition-colors group">
             {/* Time */}
             <div className="w-[128px] py-4">
               <span className="text-sm text-text-neutral-tertiary">{trade.time}</span>
@@ -67,14 +67,14 @@ export default function RecentTrades() {
 
             {/* Side */}
             <div className="w-[128px] py-4 flex items-center gap-2">
-              {trade.badge === "RS" && (
-                <span className="inline-flex items-center px-1.5 rounded text-[10px] font-medium leading-[18px] bg-bg-yellow text-text-neutral-inverse">
-                  RS
-                </span>
-              )}
               <span className={`text-sm font-medium ${trade.side === "Buy" ? "text-text-success" : "text-text-danger"}`}>
                 {trade.side}
               </span>
+              {trade.badge === "RS" && (
+                <span className="inline-flex items-center px-1.5 rounded-full text-[10px] font-medium leading-[18px] bg-bg-yellow text-text-neutral-inverse">
+                  RS
+                </span>
+              )}
             </div>
 
             {/* Market */}
@@ -104,7 +104,7 @@ export default function RecentTrades() {
 
             {/* Action */}
             <div className="w-[192px] flex justify-end py-4">
-              <button className="flex items-center justify-center w-[52px] h-[28px] border border-border-neutral-02 rounded-md cursor-pointer transition-colors hover:bg-bg-neutral-02">
+              <button className="flex items-center justify-center w-[52px] h-[28px] border border-border-neutral-02 rounded-md cursor-pointer transition-colors group-hover:bg-bg-neutral-02 hover:bg-bg-neutral-03">
                 <ArrowUpRightIcon className="size-5 text-text-neutral-primary" />
               </button>
             </div>
