@@ -1,13 +1,62 @@
 @import "tailwindcss";
 
+@theme {
+  /* ===== Font Family ===== */
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+
+  /* ===== Colors ===== */
+
+  /* Neutral Text */
+  --color-text-neutral-primary: #f9f9fa;
+  --color-text-neutral-secondary: #b4b4ba;
+  --color-text-neutral-tertiary: #7a7a83;
+  --color-text-neutral-on-color: #f9f9fa;
+  --color-text-neutral-inverse: #0a0a0b;
+
+  /* Semantic Text */
+  --color-text-primary: #5bd197;
+  --color-text-success: #5bd197;
+  --color-text-danger: #fd5e67;
+
+  /* Neutral Background */
+  --color-bg-neutral-01: #0a0a0b;
+  --color-bg-neutral-02: #1b1b1c;
+  --color-bg-neutral-03: #252527;
+
+  /* Semantic Background */
+  --color-bg-primary: #16c284;
+  --color-bg-success-muted: #16c2841a;
+  --color-bg-warning: #f97316;
+  --color-bg-yellow: #eab308;
+
+  /* Neutral Border */
+  --color-border-neutral-01: #1b1b1c;
+  --color-border-neutral-02: #252527;
+  --color-border-neutral-03: #2e2e34;
+
+  /* Neutral Icon */
+  --color-icon-neutral-primary: #f9f9fa;
+  --color-icon-neutral-secondary: #b4b4ba;
+  --color-icon-neutral-tertiary: #7a7a83;
+  --color-icon-neutral-on-color: #f9f9fa;
+
+  /* Semantic Icon */
+  --color-icon-primary: #5bd197;
+
+  /* Overlay */
+  --color-overlay-light-10: #ffffff1a;
+  --color-overlay-light-60: #ffffff99;
+  --color-overlay-dark-60: #00000099;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  color: var(--color-text-neutral-primary);
+  background-color: var(--color-bg-neutral-01);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,56 +64,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
