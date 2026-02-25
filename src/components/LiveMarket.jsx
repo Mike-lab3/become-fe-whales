@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { SearchIcon, FilterIcon, ChevronDownIcon, SortIcon, AllNetworksIcon } from "../assets/icons";
+import imgEmptyMarket from "../assets/empty-market.svg";
 
 // Network chain icons (local assets — replace files in src/assets/chains/)
 import imgNetworkSolana from "../assets/chains/solana.png";
@@ -25,10 +26,10 @@ const imgChainSui = "https://www.figma.com/api/mcp/asset/4ec662e3-2ebf-4303-8cb9
 
 const NETWORKS = [
   { id: "all", label: "All", svgIcon: true, rounded: "rounded-full" },
-  { id: "solana", label: "Solana", icon: imgNetworkSolana, rounded: "rounded-sm" },
-  { id: "ethereum", label: "Ethereum", icon: imgNetworkEthereum, rounded: "rounded-sm" },
-  { id: "hyperliquid", label: "Hyperliquid", icon: imgNetworkHyperliquid, rounded: "rounded-sm" },
-  { id: "bnb", label: "BNB Chain", icon: imgNetworkBnb, rounded: "rounded-sm" },
+  { id: "solana", label: "Solana", icon: imgNetworkSolana, rounded: "rounded-[4px]" },
+  { id: "ethereum", label: "Ethereum", icon: imgNetworkEthereum, rounded: "rounded-[4px]" },
+  { id: "hyperliquid", label: "Hyperliquid", icon: imgNetworkHyperliquid, rounded: "rounded-[4px]" },
+  { id: "bnb", label: "BNB Chain", icon: imgNetworkBnb, rounded: "rounded-[4px]" },
 ];
 
 const COLUMNS = [
@@ -36,22 +37,23 @@ const COLUMNS = [
   { label: "Last Price ($)", align: "right", sortable: true },
   { label: "24h Vol. ($)", align: "right", sortable: true },
   { label: "Total Vol. ($)", align: "right", sortable: true },
-  { label: "Settle Starts (UTC)", align: "right", sortable: false, dashed: true },
-  { label: "Settle Ends (UTC)", align: "right", sortable: false, dashed: true },
+  { label: "Settle Starts (UTC)", align: "right", sortable: false, dashed: true, tooltip: "The date and time when the settlement period begins (UTC)" },
+  { label: "Settle Ends (UTC)", align: "right", sortable: false, dashed: true, tooltip: "The date and time when the settlement period ends (UTC)" },
 ];
 
 const MARKET_DATA = [
-  { tokenImg: imgTokenSkateOn, chainImg: imgChainSolana1, name: "SKATE", sub: "SKATEON", price: "0.055", priceChange: "+162.18%", priceUp: true, vol24h: "7,375.62", vol24hChange: "-16.18%", vol24hUp: false, totalVol: "25,197.18", totalVolChange: "+6.38%", totalVolUp: true, settleStart: "30/05/2025\n01:00 PM", settleEnd: "30/05/2025\n04:00 PM" },
-  { tokenImg: imgTokenSkateChain, chainImg: imgChainSolana2, name: "SKATE", sub: "Skate Chain", price: "0.119", priceChange: "+63.8%", priceUp: true, vol24h: "445.86", vol24hChange: "+1,159.36%", vol24hUp: true, totalVol: "21,904.26", totalVolChange: "+19.12%", totalVolUp: true, settleStart: "10/06/2025\n03:00 PM", settleEnd: "10/06/2025\n07:00 PM" },
-  { tokenImg: imgTokenEra, chainImg: imgChainEthereum, name: "ERA", sub: "Caldera", price: "0.0464", priceChange: "+98.31%", priceUp: true, vol24h: "418,326.12", vol24hChange: "-32.16%", vol24hUp: false, totalVol: "7,483,875.48", totalVolChange: "+9.18%", totalVolUp: true, settleStart: null, settleEnd: null },
-  { tokenImg: imgTokenGrass, chainImg: imgChainSolana4, name: "GRASS", sub: "Grass", price: "0.11", priceChange: "+124.52%", priceUp: true, vol24h: "10,418.71", vol24hChange: "+228.25%", vol24hUp: true, totalVol: "64,110.29", totalVolChange: "+0.81%", totalVolUp: true, settleStart: null, settleEnd: null },
-  { tokenImg: imgTokenLoud, chainImg: imgChainSolana5, name: "LOUD", sub: "Loud", price: "$0.9638", priceChange: "+22.60%", priceUp: true, vol24h: "18,312.61", vol24hChange: "+49.13%", vol24hUp: true, totalVol: "628,875.43", totalVolChange: "+8.42%", totalVolUp: true, settleStart: null, settleEnd: null },
-  { tokenImg: imgTokenMmt, chainImg: imgChainSui, name: "MMT", sub: "Momentum", price: "0.65", priceChange: "+48.32%", priceUp: true, vol24h: "0.00", vol24hChange: "-100.00%", vol24hUp: false, totalVol: "7,244.16", totalVolChange: "+0.00%", totalVolUp: true, settleStart: null, settleEnd: null },
+  { network: "solana", tokenImg: imgTokenSkateOn, chainImg: imgChainSolana1, name: "SKATE", sub: "SKATEON", price: "0.055", priceChange: "+162.18%", priceUp: true, vol24h: "7,375.62", vol24hChange: "-16.18%", vol24hUp: false, totalVol: "25,197.18", totalVolChange: "+6.38%", totalVolUp: true, settleStart: "30/05/2025\n01:00 PM", settleEnd: "30/05/2025\n04:00 PM" },
+  { network: "solana", tokenImg: imgTokenSkateChain, chainImg: imgChainSolana2, name: "SKATE", sub: "Skate Chain", price: "0.119", priceChange: "+63.8%", priceUp: true, vol24h: "445.86", vol24hChange: "+1,159.36%", vol24hUp: true, totalVol: "21,904.26", totalVolChange: "+19.12%", totalVolUp: true, settleStart: "10/06/2025\n03:00 PM", settleEnd: "10/06/2025\n07:00 PM" },
+  { network: "ethereum", tokenImg: imgTokenEra, chainImg: imgChainEthereum, name: "ERA", sub: "Caldera", price: "0.0464", priceChange: "+98.31%", priceUp: true, vol24h: "418,326.12", vol24hChange: "-32.16%", vol24hUp: false, totalVol: "7,483,875.48", totalVolChange: "+9.18%", totalVolUp: true, settleStart: null, settleEnd: null },
+  { network: "solana", tokenImg: imgTokenGrass, chainImg: imgChainSolana4, name: "GRASS", sub: "Grass", price: "0.11", priceChange: "+124.52%", priceUp: true, vol24h: "10,418.71", vol24hChange: "+228.25%", vol24hUp: true, totalVol: "64,110.29", totalVolChange: "+0.81%", totalVolUp: true, settleStart: null, settleEnd: null },
+  { network: "solana", tokenImg: imgTokenLoud, chainImg: imgChainSolana5, name: "LOUD", sub: "Loud", price: "$0.9638", priceChange: "+22.60%", priceUp: true, vol24h: "18,312.61", vol24hChange: "+49.13%", vol24hUp: true, totalVol: "628,875.43", totalVolChange: "+8.42%", totalVolUp: true, settleStart: null, settleEnd: null },
+  { network: "sui", tokenImg: imgTokenMmt, chainImg: imgChainSui, name: "MMT", sub: "Momentum", price: "0.65", priceChange: "+48.32%", priceUp: true, vol24h: "0.00", vol24hChange: "-100.00%", vol24hUp: false, totalVol: "7,244.16", totalVolChange: "+0.00%", totalVolUp: true, settleStart: null, settleEnd: null },
 ];
 
-export default function LiveMarket() {
+export default function LiveMarket({ onSelectMarket }) {
   const [networkOpen, setNetworkOpen] = useState(false);
   const [selectedNetwork, setSelectedNetwork] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -63,6 +65,13 @@ export default function LiveMarket() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const filteredData = MARKET_DATA.filter((item) => {
+    const matchesNetwork = selectedNetwork === "all" || item.network === selectedNetwork;
+    const q = searchQuery.toLowerCase();
+    const matchesSearch = !q || item.name.toLowerCase().includes(q) || item.sub.toLowerCase().includes(q);
+    return matchesNetwork && matchesSearch;
+  });
 
   return (
     <section className="flex flex-col gap-4 p-4">
@@ -80,6 +89,8 @@ export default function LiveMarket() {
             <input
               type="text"
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 min-w-0 bg-transparent text-sm text-text-neutral-primary placeholder:text-text-neutral-tertiary outline-none"
             />
           </div>
@@ -88,7 +99,7 @@ export default function LiveMarket() {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setNetworkOpen((prev) => !prev)}
-              className="flex items-center gap-1.5 border border-border-neutral-02 rounded-lg p-2 cursor-pointer transition-colors hover:bg-bg-neutral-02"
+              className={`flex items-center gap-1.5 border rounded-lg p-2 cursor-pointer transition-colors hover:bg-bg-neutral-02 ${networkOpen ? "border-text-neutral-primary" : "border-border-neutral-02"}`}
             >
               <FilterIcon className="size-5 text-text-neutral-primary" />
               <span className="text-sm font-medium text-text-neutral-primary">Network</span>
@@ -147,17 +158,37 @@ export default function LiveMarket() {
                 col.align === "right" ? "text-right flex justify-end" : ""
               }`}
             >
-              <div className={`flex items-center gap-0 ${col.dashed ? "border-b border-dashed border-border-neutral-03" : ""}`}>
+              <div className={`flex items-center gap-0 ${col.dashed ? "relative group border-b border-dashed border-border-neutral-03 cursor-default" : ""}`}>
                 <span className="text-xs text-text-neutral-tertiary">{col.label}</span>
                 {col.sortable && <SortIcon className="size-4" />}
+                {col.tooltip && (
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                    <div className="w-[240px] bg-bg-neutral-03 rounded-lg px-3 py-2 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.1)]">
+                      <p className="text-xs text-text-neutral-primary leading-4 text-left">{col.tooltip}</p>
+                    </div>
+                    <div style={{ width: 0, height: 0, borderLeft: '8px solid transparent', borderRight: '8px solid transparent', borderTop: '8px solid #252527' }} />
+                  </div>
+                )}
               </div>
             </div>
           ))}
         </div>
 
+        {/* Empty state */}
+        {filteredData.length === 0 && (
+          <div className="flex flex-col items-center justify-center gap-4 min-h-[240px] opacity-50 py-8">
+            <img src={imgEmptyMarket} alt="" className="size-16" />
+            <p className="text-sm text-text-neutral-tertiary text-center">No market found</p>
+          </div>
+        )}
+
         {/* Rows */}
-        {MARKET_DATA.map((item, idx) => (
-          <div key={idx} className="flex items-center border-b border-border-neutral-01 px-2 hover:bg-bg-neutral-02 cursor-pointer transition-colors">
+        {filteredData.map((item, idx) => (
+          <div
+            key={idx}
+            onClick={() => onSelectMarket?.(item)}
+            className="flex items-center border-b border-border-neutral-01 px-2 hover:bg-bg-neutral-02 cursor-pointer transition-colors"
+          >
             {/* Token */}
             <div className="flex-1 flex items-center gap-3 py-4">
               <div className="relative p-1 shrink-0">
@@ -165,7 +196,7 @@ export default function LiveMarket() {
                 <img
                   src={item.chainImg}
                   alt=""
-                  className="absolute bottom-0 left-0 size-4 rounded-sm border-2 border-bg-neutral-01 object-cover"
+                  className="absolute bottom-0 left-0 size-4 rounded-[4px] border-2 border-bg-neutral-01 object-cover"
                 />
               </div>
               <div className="flex flex-col gap-1">
