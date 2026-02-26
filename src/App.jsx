@@ -1,10 +1,8 @@
 import { useState } from "react";
 import Header from "./components/Header";
-import Banners from "./components/Banners";
-import LiveMarket from "./components/LiveMarket";
-import RecentTrades from "./components/RecentTrades";
 import BottomStats from "./components/BottomStats";
-import MarketDetailPage from "./components/MarketDetailPage";
+import HomePage from "./pages/HomePage";
+import MarketDetailPage from "./pages/MarketDetailPage";
 
 function App() {
   const [selectedMarket, setSelectedMarket] = useState(null);
@@ -19,11 +17,7 @@ function App() {
             onBack={() => setSelectedMarket(null)}
           />
         ) : (
-          <>
-            <Banners />
-            <LiveMarket onSelectMarket={setSelectedMarket} />
-            <RecentTrades />
-          </>
+          <HomePage onSelectMarket={setSelectedMarket} />
         )}
       </main>
       <div className="fixed bottom-0 left-0 right-0 bg-bg-neutral-01 border-t border-border-neutral-01 z-40">
