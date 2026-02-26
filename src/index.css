@@ -73,3 +73,8 @@ body {
 button, a, [role="button"] {
   cursor: pointer;
 }
+
+@keyframes toast-timer {
+  from { width: 0%; }
+  to { width: 100%; }
+}
